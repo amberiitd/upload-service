@@ -1,0 +1,61 @@
+openapi: 3.0.0
+info:
+  title: File Management API
+  description: API for uploading and retrieving files with metadata
+  version: 1.0.0
+
+paths:
+  /files/upload:
+    post:
+      summary: Upload a file
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                fileName:
+                  type: string
+      responses:
+        '200':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fileId:
+                    type: string
+                  metadata:
+                    type: object
+                    properties:
+                      fileId:
+                        type: string
+                      fileName:
+                        type: string
+                      createdAt:
+                        type: string
+                      size:
+                        type: number
+                      fileType:
+                        type: string
+
+  /files/{fileId}:
+    get:
+      summary: Retrieve a file
+      parameters:
+        - in: path
+          name: fileId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File retrieved successfully
+          content:
+            application/octet-stream:
+              schema:
+                type: string
