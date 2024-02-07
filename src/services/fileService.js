@@ -41,6 +41,7 @@ const uploadFile = async (req, res, next) => {
 };
 
 const readFile = async (req, res, next) => {
+  console.log("in the reader");
 	const fileId = req.params.fileId;
 
   if (!fileId) {
